@@ -1,0 +1,31 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+# Gradle and Android build outputs
+**/build/
+
+# Signing keys and credentials
+*.jks
+*.keystore
+*.asc
+gradle.properties.local
+
+# Publishing credentials
+secrets.properties
+
+# Local Android Studio preferences
+.idea/androidTestResultsUserPreferences.xml
+.idea/deploymentTargetSelector.xml
+.idea/migrations.xml

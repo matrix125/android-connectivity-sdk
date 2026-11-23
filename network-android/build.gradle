@@ -1,0 +1,69 @@
+plugins {
+    alias(libs.plugins.android.library)
+}
+
+android {
+    namespace 'io.github.matrix125.connectivity'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 24
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        debug {
+            enableUnitTestCoverage true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation libs.appcompat
+    implementation libs.material
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}
+
+
+tasks.withType(Test).configureEach {
+    testLogging {
+        events "passed", "failed", "skipped"
+        exceptionFormat "full"
+    }
+}
+
+
+tasks.register('generateJavadoc', Javadoc) {
+    description = 'Generates SDK API documentation'
+    group = 'documentation'
+
+    source = android.sourceSets.main.java.srcDirs
+
+    classpath = files(
+            android.bootClasspath,
+            configurations.named('debugCompileClasspath')
+    )
+
+    destinationDir = layout.buildDirectory
+            .dir('docs/javadoc')
+            .get()
+            .asFile
+
+    options.encoding = 'UTF-8'
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+
